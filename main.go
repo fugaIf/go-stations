@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/fugaIf/go-stations/handler"
 	"log"
 	"net/http"
 	"os"
@@ -47,11 +48,9 @@ func realMain() error {
 	}
 	defer todoDB.Close()
 
-	// set http handlers
-	mux := http.NewServeMux()
-
 	// TODO: ここから実装を行う
-	http.ListenAndServe(":8080", mux)
+	http.Handle("/healthz", new(handler.HealthzHandler))
+	http.ListenAndServe(":8080", nil)
 
 	return nil
 }
